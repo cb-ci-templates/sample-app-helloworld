@@ -1,8 +1,21 @@
-appName: "App hello World"
+appName: "App Hello World"
 properties: "properties([ \
     buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '2', numToKeepStr: '2')), \
+    parameters([ \
+      booleanParam('bool1'), \
+      booleanParam('bool2') \
+    ]), \
 ])"
 environment:
   - "EXAMPLE_KEY1 = 'THIS IS AN EXAMPLE VALUE1 FROM CI YAML'"
   - "EXAMPLE_KEY2 = 'THIS IS AN EXAMPLE VALUE2 FROM CI YAML'"
+stage:
+  - name: build
+    steps:
+      - name: "CUSTOM STEP ls"
+        exec: 'sh "ls -l"'
+      - name: "CUSTOM STEP echo"
+        exec: 'echo "Hello World"'
+      - name: "CUSTOM STEP echo property"
+        exec: 'echo "${env.EXAMPLE_KEY1}"'
 
